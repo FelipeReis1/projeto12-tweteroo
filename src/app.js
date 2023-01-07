@@ -31,4 +31,18 @@ app.post("/tweets", (req, res) => {
   res.status(201).send("OK");
 });
 
+app.get("/tweets", (req, res) => {
+  let lastTenTweets = [];
+  lastTenTweets = tweets.slice(-10).reverse();
+  const finalTweets = [];
+  lastTenTweets.map((l) => {
+    finalTweets.push({
+      username: l.user.username,
+      avatar: l.user.avatar,
+      tweet: l.tweet,
+    });
+  });
+  res.send(finalTweets);
+});
+
 app.listen(PORT, () => console.log(`Servidor rodando na porta: ${PORT} `));
